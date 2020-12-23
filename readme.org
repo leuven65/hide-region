@@ -1,0 +1,4 @@
+* hide-region.el
+Copy from [[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]]
+
+Please see [[https://www.emacswiki.org/emacs/HideRegion]]
