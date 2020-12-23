@@ -110,6 +110,7 @@ not really placed in the text, it is just shown in the overlay"
 (defvar hide-region-overlays nil
   "Variable to store the regions we put an overlay on.")
 
+;;;###autoload
 (defun hide-region-hide ()
   "Hides a region by making an invisible overlay over it and save the
 overlay on the hide-region-overlays \"ring\""
@@ -117,8 +118,8 @@ overlay on the hide-region-overlays \"ring\""
   (make-variable-buffer-local 'hide-region-overlays)
   (let ((new-overlay (make-overlay (mark) (point))))
     (setq hide-region-overlays
-	  (append
-	   (list new-overlay) hide-region-overlays))
+          (append
+           (list new-overlay) hide-region-overlays))
     (overlay-put new-overlay 'invisible t)
     (overlay-put new-overlay 'intangible t)
     (overlay-put new-overlay 'before-string
@@ -132,6 +133,7 @@ overlay on the hide-region-overlays \"ring\""
                                  'font-lock-face 'region)
                    hide-region-after-string))))
 
+;;;###autoload
 (defun hide-region-unhide ()
   "Unhide a region at a time, starting with the last one hidden and
 deleting the overlay from the hide-region-overlays \"ring\"."
@@ -139,9 +141,10 @@ deleting the overlay from the hide-region-overlays \"ring\"."
   (make-variable-buffer-local 'hide-region-overlays)
   (if (car hide-region-overlays)
       (progn
-	(delete-overlay (car hide-region-overlays))
-	(setq hide-region-overlays (cdr hide-region-overlays)))))
+        (delete-overlay (car hide-region-overlays))
+        (setq hide-region-overlays (cdr hide-region-overlays)))))
 
+;;;###autoload
 (defun hide-region-unhide-below (point)
   "unhide a region just below the point"
   (interactive "d")
@@ -165,14 +168,14 @@ deleting the overlay from the hide-region-overlays \"ring\"."
           (delete-overlay tmp-overlay)
           (if (equal tmp-number 0)
               (setq hide-region-overlays (cdr hide-region-overlays))
-          (delq tmp-overlay hide-region-overlays)))
+            (delq tmp-overlay hide-region-overlays)))
       (if (car hide-region-overlays)
-      (progn
-	(delete-overlay (car hide-region-overlays))
-	(setq hide-region-overlays (cdr hide-region-overlays)))))
+          (progn
+            (delete-overlay (car hide-region-overlays))
+            (setq hide-region-overlays (cdr hide-region-overlays)))))
     ))
 
-
+;;;###autoload
 (defun hide-region-unhide-all ()
   (interactive)
   "unhide all the region in the current buffer"
@@ -186,6 +189,7 @@ deleting the overlay from the hide-region-overlays \"ring\"."
 (defvar hide-region-show-flag nil
   "flag used to indicate whether the region is shown when toggle")
 
+;;;###autoload
 (defun hide-region-toggle ()
   "toggle all the hide region in the current buffer"
   (interactive)
