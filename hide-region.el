@@ -120,6 +120,7 @@ overlay on the hide-region-overlays \"ring\""
            hide-region-overlays)
   (setq hide-region-overlays nil))
 
+;;;###autoload
 (defun hide-region-next-ov ()
   "Jump to next ov after current point"
   (interactive)
@@ -133,6 +134,7 @@ overlay on the hide-region-overlays \"ring\""
     )
   )
 
+;;;###autoload
 (defun hide-region-pre-ov ()
   "Jump to previous ov before current point"
   (interactive)
