@@ -50,8 +50,8 @@ property. The text is not affected."
   :type 'function
   :group 'hide-region)
 
-(defvar hide-region-folded-face
-  '((t (:inherit 'font-lock-keyword-face :box t)))
+(defface hide-region-folded-face
+  '((t (:inherit font-lock-keyword-face :box t)))
   "Face for the overlay")
 
 (defvar hide-region-overlays nil
@@ -81,7 +81,7 @@ overlay on the hide-region-overlays \"ring\""
         (funcall hide-region-set-up-overlay-fn new-overlay)
       (overlay-put new-overlay
                    'display
-                   (propertize "..." 'face hide-region-folded-face)))
+                   (propertize "..." 'face 'hide-region-folded-face)))
     (overlay-put new-overlay 'keymap hide-region-overlay-map))
   (deactivate-mark)
   (backward-char) ; to put the point on the overlay
@@ -100,7 +100,7 @@ overlay on the hide-region-overlays \"ring\""
                ))
            (seq-intersection ovs hide-region-overlays))
   (setq hide-region-overlays
-        (set-difference hide-region-overlays ovs))
+        (seq-difference hide-region-overlays ovs))
   )
 
 ;;;###autoload
