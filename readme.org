@@ -4,8 +4,9 @@
 #+DATE: 2020-12-23
 
 * About
-Originally it is copied from [[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]]
-The introduction can be foudn in [[https://www.emacswiki.org/emacs/HideRegion]]
+The original version was copied from [[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]]
+
+The introduction can be found in [[https://www.emacswiki.org/emacs/HideRegion]]
 
 ** My changes                                                       :ATTACH:
 1. Add ~hide-region-folded-face~ for the overlay, and remove ~hide-region-before-string~,
@@ -16,6 +17,7 @@ The introduction can be foudn in [[https://www.emacswiki.org/emacs/HideRegion]]
 4. Re-implement ~hide-region-hide~, ~hide-region-unhide~, and ~hide-region-unhide-all~.
 5. Remove ~hide-region-unhide-below~ and ~hide-region-toggle~.
 6. Add ~hide-region-toggle-hide~.
+7. Support to navigate over all the hide regions.
 
 * Usage
 ** Install
@@ -31,6 +33,8 @@ lines to Emacs config file:
            ("C-M-<f9>" . hide-region-unhide-all)
            ;; :map hide-region-overlay-map
            ;; ("<tab>" . hide-region-unhide)
+           ;; ("n" . hide-region-next-ov)
+           ;; ("p" . hide-region-pre-ov)
            )
     :init
     (load "hide-region-autoloads.el")
@@ -54,7 +58,12 @@ lines to Emacs config file:
    Customize the overlay.
 2. ~hide-region-overlay-map~ \\
    Set new keybindings to the overlay keymap. \\
-   By default, "<tab>" is bound to ~hide-region-unhide~.
+   By default,
+   | key     | Command               |
+   |---------+-----------------------|
+   | "<tab>" | ~hide-region-unhide~  |
+   | "n"     | ~hide-region-next-ov~ |
+   | "p"     | ~hide-region-pre-ov~  |
 
 * Snapshot
 1. Default behavior \\
