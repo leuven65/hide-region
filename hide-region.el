@@ -60,6 +60,8 @@ property. The text is not affected."
 (defvar hide-region-overlay-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<tab>") #'hide-region-unhide)
+    (define-key map (kbd "n") #'hide-region-next-ov)
+    (define-key map (kbd "p") #'hide-region-pre-ov)
     map)
   "Keymap automatically activated inside overlays.
 You can re-bind the commands to any keys you prefer.")
@@ -117,6 +119,32 @@ overlay on the hide-region-overlays \"ring\""
   (seq-map #'delete-overlay
            hide-region-overlays)
   (setq hide-region-overlays nil))
+
+(defun hide-region-next-ov ()
+  "Jump to next ov after current point"
+  (interactive)
+  (let* ((cur-pos (point))
+         (all-ov-pos (seq-map (lambda (_) (overlay-start _))
+                              hide-region-overlays))
+         (ov-after-pos (seq-filter (lambda (_) (> _ cur-pos)) all-ov-pos)))
+    (if ov-after-pos
+        (goto-char (seq-min ov-after-pos))
+      (user-error "No hide-region after current pos"))
+    )
+  )
+
+(defun hide-region-pre-ov ()
+  "Jump to previous ov before current point"
+  (interactive)
+  (let* ((cur-pos (point))
+         (all-ov-pos (seq-map (lambda (_) (overlay-start _))
+                              hide-region-overlays))
+         (ov-before-pos (seq-filter (lambda (_) (< _ cur-pos)) all-ov-pos)))
+    (if ov-before-pos
+        (goto-char (seq-max ov-before-pos))
+      (user-error "No hide-region before current pos"))
+    )
+  )
 
 (provide 'hide-region)
 
