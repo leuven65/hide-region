@@ -82,6 +82,7 @@ overlay on the hide-region-overlays \"ring\""
                    (propertize "..." 'face hide-region-folded-face)))
     (overlay-put new-overlay 'keymap hide-region-overlay-map))
   (deactivate-mark)
+  (backward-char) ; to put the point on the overlay
   )
 
 ;;;###autoload
