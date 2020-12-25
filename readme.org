@@ -17,7 +17,46 @@ The introduction can be foudn in [[https://www.emacswiki.org/emacs/HideRegion]]
 5. Remove ~hide-region-unhide-below~ and ~hide-region-toggle~.
 6. Add ~hide-region-toggle-hide~.
 
-** Snapshot
+* Usage
+** Install
+Firstly clone this git repo to "${user-emacs-directory}/packages/hide-region", and add folowing
+lines to Emacs config file:
+#+begin_src emacs-lisp
+  (use-package hide-region
+    :defer t
+    :ensure nil ; it is github package
+    ;; If the path is relative, it is expanded within `user-emacs-directory'
+    :load-path "packages/hide-region"
+    :bind (("C-<f9>" . hide-region-toggle-hide)
+           ("C-M-<f9>" . hide-region-unhide-all)
+           ;; :map hide-region-overlay-map
+           ;; ("<tab>" . hide-region-unhide)
+           )
+    :init
+    (load "hide-region-autoloads.el")
+    )
+#+end_src
+
+** Usage
+*** Commands
+1. ~hide-region-hide~ \\
+   Hide the selected region.
+2. ~hide-region-unhide~ \\
+   Unhide the hide region.
+3. ~hide-region-toggle-hide~ \\
+   If the selected region is active, run ~hide-region-hide~ to hide the region; otherwise, get the
+   overlays of current point, and unhide the region.
+4. ~hide-region-unhide-all~ \\
+   Unhide all the region in the buffer.
+
+*** Customize variable
+1. ~hide-region-set-up-overlay-fn~ \\
+   Customize the overlay.
+2. ~hide-region-overlay-map~ \\
+   Set new keybindings to the overlay keymap. \\
+   By default, "<tab>" is bound to ~hide-region-unhide~.
+
+* Snapshot
 1. Default behavior \\
    #+DOWNLOADED: screenshot @ 2020-12-25 18:21:47
    [[./image/image1.png]]
