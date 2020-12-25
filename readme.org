@@ -1,4 +1,38 @@
-* hide-region.el
-Copy from [[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]]
+# -*- coding: utf-8; eval: (org-cdlatex-mode 1); -*-
+#+TITLE: hide-region.el
+#+AUTHOR: Jian Wang
+#+DATE: 2020-12-23
 
-Please see [[https://www.emacswiki.org/emacs/HideRegion]]
+* About
+Originally it is copied from [[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]]
+The introduction can be foudn in [[https://www.emacswiki.org/emacs/HideRegion]]
+
+** My changes                                                       :ATTACH:
+1. Add ~hide-region-folded-face~ for the overlay, and remove ~hide-region-before-string~,
+   ~hide-region-after-string~ and ~hide-region-propertize-markers~.
+2. Add ~hide-region-set-up-overlay-fn~ to allow customize the overaly.
+3. Add keymap ~hide-region-overlay-map~ for the overlay. \\
+   By default, "<tab>" is binding to ~hide-region-unhide~.
+4. Re-implement ~hide-region-hide~, ~hide-region-unhide~, and ~hide-region-unhide-all~.
+5. Remove ~hide-region-unhide-below~ and ~hide-region-toggle~.
+6. Add ~hide-region-toggle-hide~.
+
+** Snapshot
+1. Default behavior \\
+   #+DOWNLOADED: screenshot @ 2020-12-25 18:21:47
+   [[./image/image1.png]]
+
+2. Customize ~hide-region-set-up-overlay-fn~ by adding the info of number of lines
+   #+begin_src emacs-lisp
+     (use-package hide-region
+       :custom
+       (hide-region-set-up-overlay-fn #'my-hide-region-folded-overlay)
+       :init
+       (defun my-hide-region-folded-overlay (ov)
+         (let* ((nlines (count-lines (overlay-start ov) (overlay-end ov)))
+                (info (format " ... #%d " nlines)))
+           (overlay-put ov 'display (propertize info 'face hide-region-folded-face))))
+       )
+   #+end_src
+   #+DOWNLOADED: screenshot @ 2020-12-25 18:27:57
+   [[./image/image2.png]]
