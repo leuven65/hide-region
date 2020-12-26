@@ -37,7 +37,12 @@ lines to Emacs config file:
            ;; ("p" . hide-region-pre-ov)
            )
     :init
-    (load "hide-region-autoloads.el")
+    (let ((pkg-name "hide-region"))
+      (ignore-errors
+          (package-generate-autoloads pkg-name
+                                      (expand-file-name (concat "packages/" pkg-name)
+                                                        user-emacs-directory)))
+      (load (concat pkg-name "-autoloads.el")))
     )
 #+end_src
 
