@@ -4,11 +4,15 @@
 #+DATE: 2020-12-23
 
 * About
-The original version was copied from [[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]]
+"hide-region" is Emacs package to hide the selected region in the buffer.
 
-The introduction can be found in [[https://www.emacswiki.org/emacs/HideRegion]]
+The original version was copied from
+[[https://gist.github.com/mplscorwin/7832d7de7530ff355bff5778e46f477d/]], and I adapt the code and made
+some improvement.
 
-** My changes                                                       :ATTACH:
+The old library introduction can be found in [[https://www.emacswiki.org/emacs/HideRegion]].
+
+** Improvement
 1. Add ~hide-region-folded-face~ for the overlay, and remove ~hide-region-before-string~,
    ~hide-region-after-string~ and ~hide-region-propertize-markers~.
 2. Add ~hide-region-set-up-overlay-fn~ to allow customize the overaly.
